@@ -9,11 +9,14 @@ import com.sun.star.lang.XMultiComponentFactory;
 import com.sun.star.uno.UnoRuntime;
 import com.sun.star.uno.XComponentContext;
 
+import java.io.File;
+
 import static com.sun.star.lib.util.NativeLibraryLoader.LO_PATH_KEY;
 
 public class M3 {
     public static void main(String[] args) {
-        System.setProperty(LO_PATH_KEY, "/usr/lib/libreoffice/program/");
+        // System.setProperty(LO_PATH_KEY, "/usr/lib/libreoffice/program/");
+        System.setProperty(LO_PATH_KEY, "c:\\Program Files (x86)\\LibreOffice\\program\\");
 
         try {
             // __ Get the remote office component context
@@ -34,7 +37,9 @@ public class M3 {
             propertyValues[0].Name = "Hidden";
             propertyValues[0].Value = Boolean.TRUE;
 
-            XComponent oDocToStore = xCLoader.loadComponentFromURL("file:////home/storage/DEV/Java3/___/Untitled1.docx", "_blank", 0, propertyValues);
+            String testFilePath = new File("test_files/test1.docx").getAbsolutePath().replaceAll("\\\\", "/");
+
+            XComponent oDocToStore = xCLoader.loadComponentFromURL("file:///" + testFilePath, "_blank", 0, propertyValues);
 
             XStorable xStorable = UnoRuntime.queryInterface(XStorable.class, oDocToStore);
 
@@ -48,9 +53,9 @@ public class M3 {
             propertyValues[1].Name = "FilterName";
             propertyValues[1].Value = "writer_pdf_Export";
 
-            xStorable.storeAsURL("file:////home/storage/DEV/Java3/___/Untitled1.docx.pdf", propertyValues);
+            xStorable.storeToURL("file:///" + testFilePath + ".pdf", propertyValues);
 
-
+            oDocToStore.dispose();
             xDesktop.terminate();
 
         } catch (BootstrapException be) {
