@@ -20,21 +20,15 @@ package com.sun.star.lib.uno.helper;
 
 import com.sun.star.bridge.XBridgeSupplier2;
 import com.sun.star.lang.XTypeProvider;
-import com.sun.star.uno.XAdapter;
 import com.sun.star.uno.Type;
 import com.sun.star.uno.XReference;
 import com.sun.star.uno.XWeak;
+import org.junit.Test;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
-import util.WaitUnreachable;
+import static org.junit.Assert.*;
 
 public class WeakBase_Test
 {
@@ -68,43 +62,6 @@ public class WeakBase_Test
         Type[] t2= f2.getTypes();
         assertArrayEquals(t1, t2);
         new Foo2();
-    }
-
-    @Test public void queryAdapter() throws Exception
-    {
-        logger.log(Level.INFO, "Testing WeakBase.queryAdapter, XAdapter tests");
-        SomeClass comp= new SomeClass();
-
-        XAdapter adapter= comp.queryAdapter();
-        MyRef aRef1= new MyRef();
-        MyRef aRef2= new MyRef();
-        adapter.addReference(aRef1);
-        adapter.addReference(aRef2);
-
-        assertSame(adapter.queryAdapted(), comp);
-        WaitUnreachable u = new WaitUnreachable(comp);
-        comp= null;
-        u.waitUnreachable();
-        assertEquals(aRef1.nDisposeCalled, 1);
-        assertEquals(aRef2.nDisposeCalled, 1);
-        assertNull(adapter.queryAdapted());
-        adapter.removeReference(aRef1); // should not do any harm
-        adapter.removeReference(aRef2);
-
-        comp= new SomeClass();
-        adapter= comp.queryAdapter();
-        aRef1.nDisposeCalled= 0;
-        aRef2.nDisposeCalled= 0;
-
-        adapter.addReference(aRef1);
-        adapter.addReference(aRef2);
-
-        adapter.removeReference(aRef1);
-        u = new WaitUnreachable(comp);
-        comp= null;
-        u.waitUnreachable();
-        assertEquals(aRef1.nDisposeCalled, 0);
-        assertEquals(aRef2.nDisposeCalled, 1);
     }
 }
 

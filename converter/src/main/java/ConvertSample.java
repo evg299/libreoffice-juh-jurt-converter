@@ -13,10 +13,11 @@ import java.io.File;
 
 import static com.sun.star.lib.util.NativeLibraryLoader.LO_PATH_KEY;
 
-public class M3 {
+public class ConvertSample {
     public static void main(String[] args) {
-        // System.setProperty(LO_PATH_KEY, "/usr/lib/libreoffice/program/");
-        System.setProperty(LO_PATH_KEY, "c:\\Program Files (x86)\\LibreOffice\\program\\");
+        // TODO: read from file
+        System.setProperty(LO_PATH_KEY, "/usr/lib/libreoffice/program/");
+        // System.setProperty(LO_PATH_KEY, "c:\\Program Files (x86)\\LibreOffice\\program\\");
 
         try {
             // __ Get the remote office component context

@@ -6,14 +6,58 @@
 
     <groupId>libreoffice</groupId>
     <artifactId>juh-jurt-converter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>ABSOLUTE</version>
     <packaging>pom</packaging>
 
     <modules>
-        <!--<module>juh</module>
-        <module>jurt</module>-->
         <module>converter</module>
-        <module>runner</module>
+        <module>juh</module>
+        <module>jurt</module>
     </modules>
 
+
+    <properties>
+        <juh.version>5.4.2.fixed</juh.version>
+        <jurt.version>5.4.2.fixed</jurt.version>
+        <org.libreoffice.ridl.version>5.4.2</org.libreoffice.ridl.version>
+        <org.libreoffice.unoil.version>5.4.2</org.libreoffice.unoil.version>
+        <org.libreoffice.unoloader.version>5.4.2</org.libreoffice.unoloader.version>
+        <junit.version>4.12</junit.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.libreoffice</groupId>
+                <artifactId>juh</artifactId>
+                <version>${juh.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.libreoffice</groupId>
+                <artifactId>jurt</artifactId>
+                <version>${jurt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.libreoffice</groupId>
+                <artifactId>ridl</artifactId>
+                <version>${org.libreoffice.ridl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.libreoffice</groupId>
+                <artifactId>unoil</artifactId>
+                <version>${org.libreoffice.unoil.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.libreoffice</groupId>
+                <artifactId>unoloader</artifactId>
+                <version>${org.libreoffice.unoloader.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
